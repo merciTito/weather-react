@@ -1,18 +1,23 @@
 import React from "react";
 import "./App.css";
+import Weather from "./Weather";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      Weather App
-      <footer>
-        SheCodes Homework
-        <a href="https://github.com/merciTito/weather-react" target="_blank">
-          and is Open-sourced on Git-hub
-        </a>
-      </footer>
+      <div className="container">
+        <Weather />
+        <footer>
+          SheCodes Homework from Anuoluwapo{" "}
+          <a
+            href="https://github.com/merciTito/weather-react"
+            target="_blank"
+            rel="noreferrer"
+          >
+            and is Open-sourced on Git-hub
+          </a>
+        </footer>
+      </div>
     </div>
   );
 }
-
-export default App;
