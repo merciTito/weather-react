@@ -1,52 +1,35 @@
-import React from "react";
-import WeatherIcon from "./WeatherIcon";
+import React, { useState } from "react";
 import "./WeatherForecast.css";
-export default function WeatherForecast() {
-  return (
-    <div className="WeatherForecast">
-      <div className="row">
-        <div className="col">
-          <div className="WeatherForecast-day">Sun.</div>
-          <WeatherIcon code="02d" size={35} />
-          <div className="WeatherForecast-temperatures">
-            <span className="WeatherForecast-temperature-max">69°</span>
-            <span className="WeatherForecast-temperature-min">59°</span>
-          </div>
-        </div>
+import axios from "axios";
+import WeatherForecastDay from "./WeatherForecastDay";
 
-        <div className="col">
-          <div className="WeatherForecast-day">Sun.</div>
-          <WeatherIcon code="02d" size={35} />
-          <div className="WeatherForecast-temperatures">
-            <span className="WeatherForecast-temperature-max">69°</span>
-            <span className="WeatherForecast-temperature-min">59°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Sun.</div>
-          <WeatherIcon code="02d" size={35} />
-          <div className="WeatherForecast-temperatures">
-            <span className="WeatherForecast-temperature-max">69°</span>
-            <span className="WeatherForecast-temperature-min">59°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Sun.</div>
-          <WeatherIcon code="02d" size={35} />
-          <div className="WeatherForecast-temperatures">
-            <span className="WeatherForecast-temperature-max">69°</span>
-            <span className="WeatherForecast-temperature-min">59°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Sun.</div>
-          <WeatherIcon code="02d" size={35} />
-          <div className="WeatherForecast-temperatures">
-            <span className="WeatherForecast-temperature-max">69°</span>
-            <span className="WeatherForecast-temperature-min">59°</span>
+export default function WeatherForecast(props) {
+  let [ready, setReady] = useState(false);
+  let [forecastdata, setForecastData] = useState(null);
+
+  function handleResponse(response) {
+    setForecastData(response.data.daily);
+    setReady(true);
+  }
+
+  if (ready) {
+    console.log(forecastdata);
+    return (
+      <div className="WeatherForecast">
+        <div className="row">
+          <div className="col">
+            <WeatherForecastDay data={forecastdata[0]} />
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    let apiKey = "f53fa921ea7266dbd234fa129e5543c0";
+    let longitude = props.coord.lon;
+    let latitude = props.coord.lat;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon${longitude}=&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(handleResponse);
+    return null;
+  }
 }
