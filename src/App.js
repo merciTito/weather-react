@@ -8,13 +8,13 @@ export default function App() {
       <div className="container">
         <Weather defaultCity="Toronto" />
         <footer>
-          SheCodes Homework from Anuoluwapo{" "}
+          SheCodes Homework from Anuoluwapo and is{" "}
           <a
             href="https://github.com/merciTito/weather-react"
             target="_blank"
             rel="noreferrer"
           >
-            and is Open-sourced on Git-hub
+            Open-sourced on Git-hub
           </a>
         </footer>
       </div>
